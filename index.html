@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="pagina">
+
+        <header class="cabecalho">
+            <h1>Advanced To-Do List</h1>
+            <i class="fa-solid fa-gear"></i>
+        </header>
+            
+        <main>
+
+            <div class="painel-tarefas">
+                <div class="painel-total">
+                    <span class="contador-total">0</span>
+                    <span class="total-taref">Total</span>
+                </div>
+                
+                <div class="painel-completed">
+                    <span class="contador-completed">0</span>
+                    <span class="completed-taref">Completed</span>
+                </div>
+                
+                <div class="painel-pending">
+                    <span class="contador-pending">0</span>
+                    <span class="pending-taref">Pending</span>
+                </div>
+                
+            </div>
+
+            <div class="form-entrada">
+                <input class="tarefa" type="text" placeholder="Adicione uma nova tarefa...">
+                <button class="btn-add">+ Add</button>
+            </div>
+
+            <div class="filtros">
+                <select name="select-tarefas" id="select-tarefas">
+                    <option value="todas-tarefas">Tarefas</option>
+                    <option value="concluida">Feito</option>
+                    <option value="em-andamento">Pendente</option>
+                    <option value="todas-tarefas">Todas</option>
+                </select>
+
+                <select name="select-prioridades" id="select-prioridades">
+                    <option value="todas-prioridades">Prioridades</option>
+                    <option value="baixo">Baixo</option>
+                    <option value="medio">Médio</option>
+                    <option value="alto">Alto</option>
+                    <option value="todas-prioridades">Todas</option>
+                </select>
+
+                <select name="select-categorias" id="select-categorias">
+                    <option value="todas-categorias">Categorias</option>
+                    <option value="pessoal">Pessoal</option>
+                    <option value="trabalho">Trabalho</option>
+                    <option value="casa">Casa</option>
+                    <option value="saude">Saúde</option>
+                    <option value="sem-categoria">Sem Categoria</option>
+                </select>
+                
+                <div class="search-tasks">
+                    <input class="input-search" type="text" placeholder="Procurar Tarefas...">
+                    <button class="btn-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                
+            </div>
+
+            <div class="form-saida">
+                <ul class="areaTarefas">
+
+                </ul>
+            </div>
+            
+        </main>
+
+    </div>
+
+</body>
+</html>     

@@ -1,0 +1,132 @@
+body {
+    background-color: #343A40;
+}
+
+.pagina {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    font-family: sans-serif;
+}
+
+.cabecalho {
+    color: rgb(121, 152, 255);
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.painel-tarefas {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 80px;
+    margin-bottom: 30px;
+    background-color: #212529;
+    border-radius: 5px;
+}
+
+.painel-total, .painel-completed,
+.painel-pending {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contador-total, .contador-completed, .contador-pending {
+    color: rgb(121, 152, 255);
+    font-size: 30px;
+}
+
+.total-taref, .completed-taref, .pending-taref {
+    color: aliceblue;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.form-entrada {
+    display: flex;
+    margin-bottom: 30px;
+    gap: 5px;
+    border-radius: 10px;
+}
+
+.tarefa {
+    background-color: #212529;
+    border: 1px solid #495057;
+    border-radius: 5px;
+    height: 40px;
+    flex: 1;
+}
+
+.btn-add {
+    width: 80px;
+    font-size: 15px;
+    background-color: rgb(121, 152, 255);
+    border: none;
+    border-radius: 5px;
+    color: aliceblue;
+}
+
+.filtros {
+    display: flex;
+    height: 40px;
+    gap: 10px;
+}
+
+.search-tasks {
+    display: flex;
+    margin-left: auto;
+    background-color: #212529;
+    border: 1px solid #495057;
+    border-radius: 5px;
+}
+
+.btn-search, .input-search {
+    border: none;
+    background-color: transparent;
+}
+
+.btn-search {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+select {
+    width: 120px;
+    background-color: #212529;
+    border: 1px solid #495057;
+    border-radius: 5px;
+}
+
+input, select {
+    color: aliceblue;
+    padding-left: 8px;
+}
+
+i {
+    color: white;
+}
+
+button, select, i{
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.tarefa:focus,
+.input-search:focus,
+#select-tarefas:focus,
+#select-prioridades:focus,
+#select-categorias:focus {
+    outline: none;
+}
