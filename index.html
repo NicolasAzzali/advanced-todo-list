@@ -6,7 +6,7 @@
     <title>To-Do List</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-</head>
+    <script src="script.js" defer></script>
 <body>
 
     <div class="pagina">
@@ -43,22 +43,22 @@
 
             <div class="filtros">
                 <select name="select-tarefas" id="select-tarefas">
-                    <option value="todas-tarefas">Tarefas</option>
-                    <option value="concluida">Feito</option>
+                    <option value="todas-tarefas" disabled selected hidden>Tarefas</option>
+                    <option value="concluida">Concluida</option>
                     <option value="em-andamento">Pendente</option>
                     <option value="todas-tarefas">Todas</option>
                 </select>
 
                 <select name="select-prioridades" id="select-prioridades">
-                    <option value="todas-prioridades">Prioridades</option>
-                    <option value="baixo">Baixo</option>
-                    <option value="medio">Médio</option>
-                    <option value="alto">Alto</option>
+                    <option value="todas-prioridades" disabled selected hidden>Prioridades</option>
+                    <option value="baixo">Baixa</option>
+                    <option value="medio">Média</option>
+                    <option value="alto">Alta</option>
                     <option value="todas-prioridades">Todas</option>
                 </select>
 
                 <select name="select-categorias" id="select-categorias">
-                    <option value="todas-categorias">Categorias</option>
+                    <option value="todas-categorias" disabled selected hidden>Categorias</option>
                     <option value="pessoal">Pessoal</option>
                     <option value="trabalho">Trabalho</option>
                     <option value="casa">Casa</option>
@@ -82,6 +82,36 @@
             </div>
             
         </main>
+
+        <dialog id="janela-tarefa">
+            <h2>Detalhes da tarefa</h2>
+
+            <textarea name="descricao-taref" id="descricao-tarefa"></textarea>
+
+            <div class="dialog-filtros">
+                <select name="prioridade-tarefa" id="prioridade-tarefa">
+                    <option value="todas-prioridades" disabled selected hidden>Prioridades</option>
+                    <option value="baixo">Baixa</option>
+                    <option value="medio">Média</option>
+                    <option value="alto">Alta</option>
+                    <option value="todas-prioridades">Todas</option>
+                </select>
+
+                <select name="categoria-tarefa" id="categoria-tarefa">
+                    <option value="todas-categorias" disabled selected hidden>Categorias</option>
+                    <option value="pessoal">Pessoal</option>
+                    <option value="trabalho">Trabalho</option>
+                    <option value="casa">Casa</option>
+                    <option value="saude">Saúde</option>
+                    <option value="sem-categoria">Sem Categoria</option>
+                </select>
+            </div>
+            
+            <div id="btns-dialog">
+            <button id="btn-salvar" type="button">Salvar</button>
+            <button id="btn-cancelar" type="button">Cancelar</button>
+            </div>
+        </dialog>
 
     </div>
 
