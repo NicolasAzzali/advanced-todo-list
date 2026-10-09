@@ -25,6 +25,7 @@ body {
     margin-bottom: 30px;
     background-color: #212529;
     border-radius: 5px;
+    box-shadow: 0 0 4px black;
 }
 
 .painel-total, .painel-completed,
@@ -203,4 +204,78 @@ dialog::backdrop{
 #btn-salvar:active,
 #btn-cancelar:active {
     transform: scale(0.90);
+}
+
+.areaTarefas {
+    list-style: none;
+    margin-top: 30px;
+    padding: 0;
+    background-color: #212529;
+    border-radius: 5px;
+    box-shadow: 0 0 4px black;
+}
+
+.item-tarefa {
+    display: flex;
+    padding: 20px 15px;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #495057;
+}
+
+.item-tarefa:last-child {
+    border: none;
+}
+
+.input-checkbox {
+    width: 17px;
+    height: 17px;
+}
+
+.nome-span {
+    color: aliceblue;
+    font-size: 18px
+}
+
+.opcoes-tarefa {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.prioridade-span {
+    margin-right: 20px;
+    font-weight: bold;
+    padding: 7px;
+    border-radius: 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.button-editar,
+.button-lixeira {
+    background-color: transparent;
+    border: none;
+}
+
+.button-editar i,
+.button-lixeira i {
+    font-size: 15px;
+}
+
+.prioridade-span.baixo {
+    background-color: #24382b;
+    color: #4ADE80;
+}
+
+.prioridade-span.médio {
+    background-color: #383526;
+    color: #FFC107;
+}
+
+.prioridade-span.alto {
+    background-color: #34262C;
+    color: #DC3545;
 }
