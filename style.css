@@ -279,3 +279,8 @@ dialog::backdrop{
     background-color: #34262C;
     color: #DC3545;
 }
+
+.concluida {
+    text-decoration: line-through;
+    opacity: 0.6;
+}

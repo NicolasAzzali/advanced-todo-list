@@ -12,6 +12,26 @@ const categoriaTarefa = document.querySelector("#categoria-tarefa");
 
 const listaTarefas = [];
 
+const contadorTotalTarefas = document.querySelector(".contador-total");
+const contadorCompletedTarefas = document.querySelector(".contador-completed");
+const contadorPendingTarefas = document.querySelector(".contador-pending");
+
+function atualizaPainel () {
+    contadorTotalTarefas.textContent = listaTarefas.length;
+    
+    let contador = 0;
+
+    listaTarefas.forEach((novaTarefa) => {
+        if (novaTarefa.concluida === true) {
+            contador++;
+        }
+    });
+
+    contadorCompletedTarefas.textContent = contador;
+
+    contadorPendingTarefas.textContent = listaTarefas.length - contador;
+}
+
 botaoAdicionar.addEventListener("click", () => {
     if(tarefa.value.trim() === "") {
         alert('Escreva alguma tarefa.')
@@ -45,6 +65,7 @@ botaoSalvar.addEventListener("click", () => {
     }
 
     listaTarefas.push(novaTarefa);
+    atualizaPainel()
 
     const novoItem = document.createElement("li"); // LISTA
     novoItem.classList.add("item-tarefa");
@@ -52,6 +73,12 @@ botaoSalvar.addEventListener("click", () => {
     const checkBox = document.createElement("input"); // CHECKBOX PRA DEFINIR TAREFA COMO FEITA OU NÃO
     checkBox.type = "checkbox";
     checkBox.classList.add("input-checkbox");
+    checkBox.addEventListener("change", () => {
+        novaTarefa.concluida = checkBox.checked;
+        atualizaPainel()
+
+        nomeSpan.classList.toggle("concluida", checkBox.checked);
+    })
 
     const nomeSpan = document.createElement("span"); // SPAN PRA GUARDAR O NOME DA TAREFA
     nomeSpan.classList.add("nome-span");
