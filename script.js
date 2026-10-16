@@ -2,6 +2,8 @@ const tarefa = document.querySelector(".tarefa");
 const tarefas = document.querySelector(".areaTarefas");
 const botaoAdicionar = document.querySelector(".btn-add");
 
+//  DIALOG
+
 const janela = document.querySelector("#janela-tarefa");
 const botaoSalvar = document.querySelector("#btn-salvar");
 const botaoCancelar = document.querySelector("#btn-cancelar");
@@ -9,6 +11,8 @@ const botaoCancelar = document.querySelector("#btn-cancelar");
 const descricaoTarefa = document.querySelector("#descricao-tarefa");
 const prioridadeTarefa = document.querySelector("#prioridade-tarefa");
 const categoriaTarefa = document.querySelector("#categoria-tarefa");
+
+//   DIALOG
 
 const listaTarefas = [];
 
@@ -65,66 +69,82 @@ botaoSalvar.addEventListener("click", () => {
     }
 
     listaTarefas.push(novaTarefa);
+
     atualizaPainel()
-
-    const novoItem = document.createElement("li"); // LISTA
-    novoItem.classList.add("item-tarefa");
-
-    const checkBox = document.createElement("input"); // CHECKBOX PRA DEFINIR TAREFA COMO FEITA OU NÃO
-    checkBox.type = "checkbox";
-    checkBox.classList.add("input-checkbox");
-    checkBox.addEventListener("change", () => {
-        novaTarefa.concluida = checkBox.checked;
-        atualizaPainel()
-
-        nomeSpan.classList.toggle("concluida", checkBox.checked);
-    })
-
-    const nomeSpan = document.createElement("span"); // SPAN PRA GUARDAR O NOME DA TAREFA
-    nomeSpan.classList.add("nome-span");
-
-    const opcoesTarefa = document.createElement("div"); // DIV PARA GUARDAR, PRIORIDADE, EDICAO E LIXEIRA
-    opcoesTarefa.classList.add("opcoes-tarefa");
-
-    const prioridadeSpan = document.createElement("span"); // SPAN PRA GUARDAR A PRIORIDADE DA TAREFA
-    prioridadeSpan.classList.add("prioridade-span");
-
-    prioridadeSpan.classList.add(novaTarefa.prioridade);
-
-    const botaoEditar = document.createElement("button"); // BUTTON EDITAR
-    botaoEditar.type = "button";
-    botaoEditar.setAttribute("aria-label", "Editar tarefa");
-    botaoEditar.classList.add("button-editar");
-
-    const botaoLixeira = document.createElement("button"); // BUTTON LIXEIRA
-    botaoLixeira.type = "button";
-    botaoLixeira.setAttribute("aria-label", "Excluir tarefa")
-    botaoLixeira.classList.add("button-lixeira");
-
-    const iconeLixeira = document.createElement("i"); // ICONE LIXEIRA
-    iconeLixeira.classList.add("fa-regular", "fa-trash-can");
-
-    const iconeEditar = document.createElement("i"); // ICONE EDITAR
-    iconeEditar.classList.add("fa-regular", "fa-pen-to-square");
-
-    botaoLixeira.appendChild(iconeLixeira);
-    botaoEditar.appendChild(iconeEditar);
-
-    nomeSpan.textContent = novaTarefa.nome;
-    prioridadeSpan.textContent = novaTarefa.prioridade;
-
-    opcoesTarefa.appendChild(prioridadeSpan);
-    opcoesTarefa.appendChild(botaoEditar);
-    opcoesTarefa.appendChild(botaoLixeira);
-
-    novoItem.appendChild(checkBox);
-    novoItem.appendChild(nomeSpan);
-    novoItem.appendChild(opcoesTarefa);
-
-    tarefas.appendChild(novoItem);
+    
+    aplicarFiltros()
 
     janela.close();
 })
+
+
+function renderizarTarefas(lista) {
+    tarefas.innerHTML = "";
+
+    for(let i = 0; i < lista.length; i++) {
+        const tarefaAtual = lista[i];
+
+        const novoItem = document.createElement("li"); // LISTA
+        novoItem.classList.add("item-tarefa");
+
+        const checkBox = document.createElement("input"); // CHECKBOX PRA DEFINIR TAREFA COMO FEITA OU NÃO
+        checkBox.type = "checkbox";
+        checkBox.classList.add("input-checkbox");
+        checkBox.checked = tarefaAtual.concluida;
+
+        checkBox.addEventListener("change", () => {
+        tarefaAtual.concluida = checkBox.checked;
+        atualizaPainel()
+
+        nomeSpan.classList.toggle("concluida", checkBox.checked);
+        })
+
+        const nomeSpan = document.createElement("span"); // SPAN PRA GUARDAR O NOME DA TAREFA
+        nomeSpan.classList.add("nome-span");
+        nomeSpan.classList.toggle("concluida", tarefaAtual.concluida)
+
+        const opcoesTarefa = document.createElement("div"); // DIV PARA GUARDAR, PRIORIDADE, EDICAO E LIXEIRA
+        opcoesTarefa.classList.add("opcoes-tarefa");
+
+        const prioridadeSpan = document.createElement("span"); // SPAN PRA GUARDAR A PRIORIDADE DA TAREFA
+        prioridadeSpan.classList.add("prioridade-span");
+        prioridadeSpan.setAttribute("aria-label", "Prioridade da Tarefa")
+        prioridadeSpan.classList.add(tarefaAtual.prioridade);
+
+        const botaoEditar = document.createElement("button"); // BUTTON EDITAR
+        botaoEditar.type = "button";
+        botaoEditar.setAttribute("aria-label", "Editar tarefa");
+        botaoEditar.classList.add("button-editar");
+
+        const botaoLixeira = document.createElement("button"); // BUTTON LIXEIRA
+        botaoLixeira.type = "button";
+        botaoLixeira.setAttribute("aria-label", "Excluir tarefa")
+        botaoLixeira.classList.add("button-lixeira");
+
+        const iconeLixeira = document.createElement("i"); // ICONE LIXEIRA
+        iconeLixeira.classList.add("fa-regular", "fa-trash-can");
+
+        const iconeEditar = document.createElement("i"); // ICONE EDITAR
+        iconeEditar.classList.add("fa-regular", "fa-pen-to-square");
+
+        botaoLixeira.appendChild(iconeLixeira);
+        botaoEditar.appendChild(iconeEditar);
+
+        nomeSpan.textContent = tarefaAtual.nome;
+        prioridadeSpan.textContent = tarefaAtual.prioridade;
+
+        opcoesTarefa.appendChild(prioridadeSpan);
+        opcoesTarefa.appendChild(botaoEditar);
+        opcoesTarefa.appendChild(botaoLixeira);
+
+        novoItem.appendChild(checkBox);
+        novoItem.appendChild(nomeSpan);
+        novoItem.appendChild(opcoesTarefa);
+
+        tarefas.appendChild(novoItem);
+    }
+}
+
 
 janela.addEventListener("close" , () => {
     prioridadeTarefa.value = "todas-prioridades";
@@ -132,3 +152,42 @@ janela.addEventListener("close" , () => {
     descricaoTarefa.value = "";
     tarefa.value = "";
 })
+
+    const filtros = document.querySelector(".filtros");
+
+    const filtroStatusTarefas = document.querySelector("#select-tarefas");
+    const filtroPrioridades = document.querySelector("#select-prioridades");
+    const filtroCategorias = document.querySelector("#select-categorias");
+    const filtroPesquisa = document.querySelector(".input-search");
+
+function aplicarFiltros () {
+    const tarefasFiltradas = listaTarefas.filter((tarefa) => {
+        const statusCorrespondente = 
+        (filtroStatusTarefas.value === "todas-tarefas") ||
+        (filtroStatusTarefas.value === "concluida" && tarefa.concluida === true) ||
+        (filtroStatusTarefas.value === "pendente" && tarefa.concluida === false);
+
+        const prioridadeCorrespondente = 
+        filtroPrioridades.value === "todas-prioridades" ||
+        tarefa.prioridade === filtroPrioridades.value;
+
+        const categoriaCorrespondente = 
+        filtroCategorias.value === "todas-categorias" ||
+        tarefa.categoria === filtroCategorias.value
+
+        const pesquisaCorrespondente = 
+        tarefa.nome.toLowerCase().includes(filtroPesquisa.value.toLowerCase());
+
+        return statusCorrespondente && prioridadeCorrespondente && categoriaCorrespondente
+        && pesquisaCorrespondente;
+    })
+
+    renderizarTarefas(tarefasFiltradas);
+    
+}
+
+filtroStatusTarefas.addEventListener("change", aplicarFiltros);
+filtroPrioridades.addEventListener("change", aplicarFiltros);
+filtroCategorias.addEventListener("change", aplicarFiltros);
+
+filtroPesquisa.addEventListener("input", aplicarFiltros);
