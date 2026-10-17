@@ -44,21 +44,22 @@
             <div class="filtros">
                 <select name="select-tarefas" id="select-tarefas">
                     <option value="todas-tarefas" disabled selected hidden>Tarefas</option>
+                    <option value="todas-tarefas">Todas</option>
                     <option value="concluida">Concluida</option>
                     <option value="pendente">Pendente</option>
-                    <option value="todas-tarefas">Todas</option>
                 </select>
 
                 <select name="select-prioridades" id="select-prioridades">
                     <option value="todas-prioridades" disabled selected hidden>Prioridades</option>
+                    <option value="todas-prioridades">Todas</option>
                     <option value="baixo">Baixa</option>
                     <option value="médio">Média</option>
                     <option value="alto">Alta</option>
-                    <option value="todas-prioridades">Todas</option>
                 </select>
 
                 <select name="select-categorias" id="select-categorias">
                     <option value="todas-categorias" disabled selected hidden>Categorias</option>
+                    <option value="todas-categorias">Todas</option>
                     <option value="pessoal">Pessoal</option>
                     <option value="trabalho">Trabalho</option>
                     <option value="estudos">Estudos</option>
@@ -67,6 +68,8 @@
                     <option value="sem-categoria">Sem Categoria</option>
                 </select>
                 
+                <button type="button" class="limpar-filtros">x Limpar Filtros</button>
+
                 <div class="search-tasks">
                     <input class="input-search" type="text" placeholder="Procurar Tarefas...">
                     <button class="btn-search">

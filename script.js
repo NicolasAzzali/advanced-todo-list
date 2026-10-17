@@ -1,6 +1,7 @@
 const tarefa = document.querySelector(".tarefa");
 const tarefas = document.querySelector(".areaTarefas");
 const botaoAdicionar = document.querySelector(".btn-add");
+const botaoLimparFiltros = document.querySelector(".limpar-filtros");
 
 //  DIALOG
 
@@ -13,6 +14,18 @@ const prioridadeTarefa = document.querySelector("#prioridade-tarefa");
 const categoriaTarefa = document.querySelector("#categoria-tarefa");
 
 //   DIALOG
+
+
+//   FILTROS
+
+const filtros = document.querySelector(".filtros");
+
+const filtroStatusTarefas = document.querySelector("#select-tarefas");
+const filtroPrioridades = document.querySelector("#select-prioridades");
+const filtroCategorias = document.querySelector("#select-categorias");
+const filtroPesquisa = document.querySelector(".input-search");
+
+//   FILTROS
 
 const listaTarefas = [];
 
@@ -49,6 +62,15 @@ botaoCancelar.addEventListener("click", () => {
     janela.close();
 })
 
+botaoLimparFiltros.addEventListener("click", () => {
+    filtroStatusTarefas.value = "todas-tarefas";
+    filtroPrioridades.value = "todas-prioridades";
+    filtroCategorias.value = "todas-categorias";
+    filtroPesquisa.value = "";
+
+    aplicarFiltros()
+})
+
 botaoSalvar.addEventListener("click", () => {
     if (prioridadeTarefa.value === "todas-prioridades") {
         alert('Selecione uma prioridade!')
@@ -71,15 +93,41 @@ botaoSalvar.addEventListener("click", () => {
     listaTarefas.push(novaTarefa);
 
     atualizaPainel()
+
+    filtroStatusTarefas.value = "todas-tarefas";
+    filtroPrioridades.value = "todas-prioridades";
+    filtroCategorias.value = "todas-categorias";
+    filtroPesquisa.value = "";
     
     aplicarFiltros()
 
     janela.close();
+
+
 })
 
 
 function renderizarTarefas(lista) {
     tarefas.innerHTML = "";
+
+    if (lista.length === 0) {
+        const estadoVazio = document.createElement("div");
+        estadoVazio.classList.add("estado-vazio");
+
+        const mensagem = document.createElement("p"); // paragrafo PARA INFORMAR QUE AINDA NÃO HÁ TAREFAS
+        mensagem.classList.add("mensagem-vazia");
+        mensagem.textContent = "nenhuma tarefa encontrada"
+
+        const iconePrancheta = document.createElement("i"); // ICONE DA PRANCHETA
+        iconePrancheta.classList.add("fa-solid", "fa-clipboard-list", "icone-prancheta");
+
+        estadoVazio.appendChild(mensagem);
+        estadoVazio.appendChild(iconePrancheta);
+
+        tarefas.appendChild(estadoVazio);
+        
+        return;
+    }
 
     for(let i = 0; i < lista.length; i++) {
         const tarefaAtual = lista[i];
@@ -90,11 +138,13 @@ function renderizarTarefas(lista) {
         const checkBox = document.createElement("input"); // CHECKBOX PRA DEFINIR TAREFA COMO FEITA OU NÃO
         checkBox.type = "checkbox";
         checkBox.classList.add("input-checkbox");
-        checkBox.checked = tarefaAtual.concluida;
+        checkBox.checked = tarefaAtual.concluida; // VERIFICA SE O CHECKBOX ESTAVA MARCADO OU NÃO
 
         checkBox.addEventListener("change", () => {
-        tarefaAtual.concluida = checkBox.checked;
+        tarefaAtual.concluida = checkBox.checked; // MARCA/ DESMARCA O CHECKBOX
         atualizaPainel()
+
+        aplicarFiltros();
 
         nomeSpan.classList.toggle("concluida", checkBox.checked);
         })
@@ -153,12 +203,6 @@ janela.addEventListener("close" , () => {
     tarefa.value = "";
 })
 
-    const filtros = document.querySelector(".filtros");
-
-    const filtroStatusTarefas = document.querySelector("#select-tarefas");
-    const filtroPrioridades = document.querySelector("#select-prioridades");
-    const filtroCategorias = document.querySelector("#select-categorias");
-    const filtroPesquisa = document.querySelector(".input-search");
 
 function aplicarFiltros () {
     const tarefasFiltradas = listaTarefas.filter((tarefa) => {
@@ -185,6 +229,8 @@ function aplicarFiltros () {
     renderizarTarefas(tarefasFiltradas);
     
 }
+
+aplicarFiltros()
 
 filtroStatusTarefas.addEventListener("change", aplicarFiltros);
 filtroPrioridades.addEventListener("change", aplicarFiltros);

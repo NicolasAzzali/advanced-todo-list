@@ -76,6 +76,26 @@ body {
     gap: 10px;
 }
 
+.limpar-filtros {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #6d7985;
+}
+
+.limpar-filtros:hover {
+    transform: scale(0.95);
+}
+
+.limpar-filtros:focus-visible {
+    outline: 2px solid #6d7985;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
 .search-tasks {
     display: flex;
     margin-left: auto;
@@ -93,6 +113,17 @@ body {
     display: flex;
     align-items: center;
     padding-right: 10px;
+}
+
+.input-search:focus,
+.btn-search:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.search-tasks:focus-within {
+    border-color: #6d7985;
+    box-shadow: 0 0 0 2px rgba(109, 121, 133, 0.2);
 }
 
 #select-tarefas,
@@ -122,15 +153,16 @@ button, select, i{
     transform: scale(1.05);
 }
 
-.tarefa:focus,
-.input-search:focus,
-#select-tarefas:focus,
-#select-prioridades:focus,
-#select-categorias:focus,
-#descricao-tarefa,
-#prioridade-tarefa,
-#categoria-tarefa {
+.tarefa:focus-visible,
+#select-tarefas:focus-visible,
+#select-prioridades:focus-visible,
+#select-categorias:focus-visible,
+#descricao-tarefa:focus-visible,
+#prioridade-tarefa:focus-visible,
+#categoria-tarefa:focus-visible {
     outline: none;
+    border-color: #6d7985;
+    box-shadow: 0 0 0 2px rgba(109, 121, 133, 0.2);
 }
 
 dialog::backdrop{
@@ -208,11 +240,39 @@ dialog::backdrop{
 
 .areaTarefas {
     list-style: none;
-    margin-top: 30px;
+    margin-top: 50px;
     padding: 0;
     background-color: #212529;
     border-radius: 5px;
     box-shadow: 0 0 4px black;
+}
+
+.areaTarefas:has(.mensagem-vazia) {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.estado-vazio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    gap: 15px;
+}
+
+.mensagem-vazia {
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: rgba(240, 248, 255, 0.15);
+    opacity: 0.5;
+}
+
+.icone-prancheta {
+    font-size: 70px;
+    color: rgba(240, 248, 255, 0.15);
+    opacity: 0.5;
 }
 
 .item-tarefa {
@@ -234,7 +294,8 @@ dialog::backdrop{
 
 .nome-span {
     color: aliceblue;
-    font-size: 18px
+    font-size: 18px;
+    text-transform: uppercase;
 }
 
 .opcoes-tarefa {
