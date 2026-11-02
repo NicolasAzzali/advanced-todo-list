@@ -29,6 +29,8 @@ const filtroPesquisa = document.querySelector(".input-search");
 
 const listaTarefas = [];
 
+let tarefaEmEdicao = null;
+
 const contadorTotalTarefas = document.querySelector(".contador-total");
 const contadorCompletedTarefas = document.querySelector(".contador-completed");
 const contadorPendingTarefas = document.querySelector(".contador-pending");
@@ -82,6 +84,18 @@ botaoSalvar.addEventListener("click", () => {
         return;
     }
 
+    if (tarefaEmEdicao != null) {
+        tarefaEmEdicao.descricao = descricaoTarefa.value;
+        tarefaEmEdicao.prioridade = prioridadeTarefa.value;
+        tarefaEmEdicao.categoria = categoriaTarefa.value;
+
+        aplicarFiltros();
+        janela.close();
+
+        return;
+    };
+
+
     const novaTarefa = {
         nome: tarefa.value.trim(),
         descricao: descricaoTarefa.value,
@@ -103,7 +117,7 @@ botaoSalvar.addEventListener("click", () => {
 
     janela.close();
 
-
+    
 })
 
 
@@ -166,10 +180,72 @@ function renderizarTarefas(lista) {
         botaoEditar.setAttribute("aria-label", "Editar tarefa");
         botaoEditar.classList.add("button-editar");
 
+        botaoEditar.addEventListener("click", () => {
+            tarefaEmEdicao = tarefaAtual;
+
+            tarefa.value = tarefaAtual.nome;
+            descricaoTarefa.value = tarefaAtual.descricao;
+            prioridadeTarefa.value = tarefaAtual.prioridade; 
+            categoriaTarefa.value =  tarefaAtual.categoria;
+
+            janela.showModal();
+        })
+
         const botaoLixeira = document.createElement("button"); // BUTTON LIXEIRA
         botaoLixeira.type = "button";
         botaoLixeira.setAttribute("aria-label", "Excluir tarefa")
         botaoLixeira.classList.add("button-lixeira");
+
+        botaoLixeira.addEventListener("click", () => {
+            const janelaSimOuNao = document.createElement("dialog");  // JANELA SIM OU NAO
+            janelaSimOuNao.classList.add("janela-sim-nao");
+
+            const mensagemConfirma = document.createElement("p");
+            mensagemConfirma.classList.add("msg-confirma");
+            mensagemConfirma.textContent = "Deseja excluir essa tarefa?"
+
+            const buttonSim = document.createElement("button");
+            buttonSim.classList.add("button-sim");
+            buttonSim.textContent = "Sim";
+
+            const buttonNao = document.createElement("button");
+            buttonNao.classList.add("button-nao");
+            buttonNao.textContent = "Não";
+
+            const divButtonsSouN = document.createElement("div");
+            divButtonsSouN.classList.add("div-sim-nao");
+            
+            divButtonsSouN.appendChild(buttonSim);
+            divButtonsSouN.appendChild(buttonNao);
+
+            janelaSimOuNao.appendChild(mensagemConfirma);
+            janelaSimOuNao.appendChild(divButtonsSouN);
+
+            document.body.appendChild(janelaSimOuNao);
+
+            janelaSimOuNao.showModal();
+
+            janelaSimOuNao.addEventListener("close", () => {
+                janelaSimOuNao.remove();
+            })
+
+            buttonNao.addEventListener("click", () => {
+                janelaSimOuNao.close();
+
+                
+                return;
+            })
+
+            buttonSim.addEventListener("click", () => {
+                const indice = listaTarefas.indexOf(tarefaAtual); // Pega o indice da listaTarefas da tarefaAtual
+                listaTarefas.splice(indice, 1); // remove o elemento recebendo como parametro a posição de onde começara e a quantidade que sera removida
+
+                atualizaPainel();
+                aplicarFiltros();
+
+                janelaSimOuNao.close();
+            })
+        })
 
         const iconeLixeira = document.createElement("i"); // ICONE LIXEIRA
         iconeLixeira.classList.add("fa-regular", "fa-trash-can");
@@ -237,3 +313,4 @@ filtroPrioridades.addEventListener("change", aplicarFiltros);
 filtroCategorias.addEventListener("change", aplicarFiltros);
 
 filtroPesquisa.addEventListener("input", aplicarFiltros);
+
