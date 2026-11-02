@@ -277,6 +277,8 @@ janela.addEventListener("close" , () => {
     categoriaTarefa.value = "todas-categorias";
     descricaoTarefa.value = "";
     tarefa.value = "";
+
+    tarefaEmEdicao = null;
 })
 
 
