@@ -355,7 +355,6 @@ dialog::backdrop{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    
     border: 1px solid #495057;
     border-radius: 10px;
     background-color: #212529;
@@ -382,8 +381,8 @@ dialog::backdrop{
     background-color: #495057;
 }
 
-button-sim:focus-visible,
-button-nao:focus-visible {
+.button-sim:focus-visible,
+.button-nao:focus-visible {
     outline: 2px solid #adb5bd;
     outline-offset: 3px;
 }
